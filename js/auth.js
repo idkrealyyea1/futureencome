@@ -15,7 +15,7 @@ async function requireAuth(returnTo) {
   const session = await getSession();
   if (!session) {
     const target = returnTo || (location.pathname + location.search);
-    location.href = SITE_BASE + '/login.html?next=' + encodeURIComponent(target);
+    location.href = '/login.html?next=' + encodeURIComponent(target);
     return null;
   }
   return session;
@@ -39,7 +39,7 @@ async function getProfile() {
 
 async function logoutStudent() {
   await supabase.auth.signOut();
-  location.href = SITE_BASE + '/';
+  location.href = '/';
 }
 
 // ---- Backend helper (uses the current Supabase session token) ----
@@ -70,7 +70,7 @@ function getAdminToken() {
 function requireAdminAuth() {
   const token = getAdminToken();
   if (!token) {
-    location.href = SITE_BASE + '/admin/index.html';
+    location.href = '/admin/index.html';
     return null;
   }
   return token;
@@ -90,7 +90,7 @@ async function adminLogin(password) {
 
 function logoutAdmin() {
   localStorage.removeItem(ADMIN_TOKEN_KEY);
-  location.href = SITE_BASE + '/admin/index.html';
+  location.href = '/admin/index.html';
 }
 
 async function adminFetch(path, options = {}) {

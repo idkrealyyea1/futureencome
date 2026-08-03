@@ -77,13 +77,13 @@ async function renderHeader() {
   const profile = session ? await getProfile() : null;
   header.innerHTML =
     '<div class="header-inner">' +
-    '  <a class="brand" href="' + SITE_BASE + '/"><span class="brand-mark">UV</span><span class="brand-name">UniVault</span></a>' +
+    '  <a class="brand" href="/"><span class="brand-mark">UV</span><span class="brand-name">UniVault</span></a>' +
     '  <nav class="header-nav">' +
     (session
-      ? '<a href="' + SITE_BASE + '/">Universities</a>' +
-        (profile && profile.is_admin ? '<a href="' + SITE_BASE + '/admin/dashboard.html">Admin</a>' : '') +
+      ? '<a href="/">Universities</a>' +
+        (profile && profile.is_admin ? '<a href="/admin/dashboard.html">Admin</a>' : '') +
         '<button class="btn btn-ghost" onclick="logoutStudent()">Logout (' + escapeHTML(profile?.username || '') + ')</button>'
-      : '<a href="' + SITE_BASE + '/login.html">Log in</a><a href="' + SITE_BASE + '/signup.html" class="btn btn-primary">Sign up</a>') +
+      : '<a href="/login.html">Log in</a><a href="/signup.html" class="btn btn-primary">Sign up</a>') +
     '  </nav>' +
     '</div>';
   if (session) {

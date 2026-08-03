@@ -24,7 +24,7 @@ async function subscribeToPush() {
   }
 
   try {
-    const reg = await navigator.serviceWorker.register(SITE_BASE + '/sw.js');
+    const reg = await navigator.serviceWorker.register('/sw.js');
     const sub = await reg.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)

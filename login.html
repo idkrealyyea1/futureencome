@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
   <header id="site-header"></header>
@@ -27,22 +27,22 @@
         <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Log in</button>
       </form>
 
-      <p class="auth-alt">Don't have an account? <a href="signup.html">Sign up</a></p>
-      <p class="auth-alt"><a href="./">← Back to universities</a></p>
+      <p class="auth-alt">Don't have an account? <a href="/signup.html">Sign up</a></p>
+      <p class="auth-alt"><a href="/">← Back to universities</a></p>
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
-  <script src="js/supabase-client.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/main.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/supabase-client.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
   <script>
     (function () {
       renderHeader();
 
       const params = new URLSearchParams(location.search);
-      const next = params.get('next') || SITE_BASE + '/';
+      const next = params.get('next') || '/';
 
       const form = document.getElementById('login-form');
       const btn = document.getElementById('submit-btn');
@@ -79,7 +79,7 @@
         }
 
         if (next && next.startsWith('/')) location.href = next;
-        else location.href = SITE_BASE + '/';
+        else location.href = '/';
       });
     })();
   </script>
