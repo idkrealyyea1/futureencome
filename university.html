@@ -7,13 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <header id="site-header"></header>
 
   <main class="container">
-    <div class="back-link reveal"><a href="/">← All universities</a></div>
+    <div class="back-link reveal"><a href="./">← All universities</a></div>
 
     <div class="university-hero reveal">
       <div class="uni-logo large" id="uni-logo">U</div>
@@ -40,7 +40,7 @@
         <h3>Want to offer a service here?</h3>
         <p>Log in and apply to sell homework help, project help or materials in this university.</p>
       </div>
-      <a id="apply-link" class="btn btn-primary" href="/login.html">Apply to offer a service</a>
+      <a id="apply-link" class="btn btn-primary" href="login.html">Apply to offer a service</a>
     </div>
   </main>
 
@@ -51,10 +51,10 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/config.js"></script>
-  <script src="/js/supabase-client.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
   <script>
     (async function () {
       await renderHeader();
@@ -67,7 +67,7 @@
       const applyLink = document.getElementById('apply-link');
 
       if (!uniSlug) {
-        location.href = '/';
+        location.href = SITE_BASE + '/';
         return;
       }
 
@@ -88,11 +88,11 @@
         document.getElementById('uni-desc').textContent = uni.description || '';
         document.getElementById('uni-logo').textContent = (uni.name.match(/\b\w/g) || ['U']).slice(0, 3).join('');
 
-        applyLink.href = '/apply.html?u=' + encodeURIComponent(uni.slug);
+        applyLink.href = SITE_BASE + '/apply.html?u=' + encodeURIComponent(uni.slug);
 
         const session = await supabase.auth.getSession().then(({ data }) => data.session);
         if (!session) {
-          applyLink.href = '/login.html?next=' + encodeURIComponent('/apply.html?u=' + encodeURIComponent(uni.slug));
+          applyLink.href = SITE_BASE + '/login.html?next=' + encodeURIComponent(SITE_BASE + '/apply.html?u=' + encodeURIComponent(uni.slug));
         }
 
         const { data: fields, error: fieldsErr } = await supabase
@@ -113,7 +113,7 @@
         grid.innerHTML = fields.map(function (f, i) {
           const cyber = f.theme === 'cyber';
           const tag = cyber ? '<span class="field-tag cyber-tag">⚡ Special theme</span>' : '';
-          return '<a class="field-card reveal" href="/field.html?u=' + encodeURIComponent(uni.slug) + '&f=' + encodeURIComponent(f.slug) + '" style="transition-delay:' + (i * 60) + 'ms">' +
+          return '<a class="field-card reveal" href="' + SITE_BASE + '/field.html?u=' + encodeURIComponent(uni.slug) + '&f=' + encodeURIComponent(f.slug) + '" style="transition-delay:' + (i * 60) + 'ms">' +
             '  <div class="field-card-body">' +
             '    <h3>' + escapeHTML(f.name) + '</h3>' +
             '    <p>' + escapeHTML(f.description || '') + '</p>' +

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UniVault — Dashboard</title>
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b0e14">
-  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <header id="site-header"></header>
@@ -73,11 +73,11 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/config.js"></script>
-  <script src="/js/supabase-client.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/push.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/push.js"></script>
   <script>
     (async function () {
       bindModalClose();
@@ -87,11 +87,11 @@
       const uniSlug = params.get('u');
       const fieldSlug = params.get('f');
 
-      if (!uniSlug || !fieldSlug) { location.href = '/'; return; }
+      if (!uniSlug || !fieldSlug) { location.href = SITE_BASE + '/'; return; }
 
       // ---- Load field + university (public) ----
       const { data: uni } = await supabase.from('universities').select('*').eq('slug', uniSlug).maybeSingle();
-      if (!uni) { toast('University not found', 'error'); location.href = '/'; return; }
+      if (!uni) { toast('University not found', 'error'); location.href = SITE_BASE + '/'; return; }
 
       const { data: field } = await supabase
         .from('fields')
@@ -99,9 +99,9 @@
         .eq('university_id', uni.id)
         .eq('slug', fieldSlug)
         .maybeSingle();
-      if (!field) { toast('Field not found', 'error'); location.href = '/university.html?u=' + encodeURIComponent(uniSlug); return; }
+      if (!field) { toast('Field not found', 'error'); location.href = SITE_BASE + '/university.html?u=' + encodeURIComponent(uniSlug); return; }
 
-      document.getElementById('back-to-fields').href = '/university.html?u=' + encodeURIComponent(uniSlug);
+      document.getElementById('back-to-fields').href = SITE_BASE + '/university.html?u=' + encodeURIComponent(uniSlug);
       document.getElementById('dashboard-uni').textContent = uni.name;
       document.getElementById('dashboard-title').textContent = field.name;
       document.getElementById('dashboard-desc').textContent = field.description || '';
@@ -110,14 +110,14 @@
       if (uniSlug === 'ucas' && field.theme === 'cyber') {
         document.documentElement.classList.remove('theme-default');
         document.documentElement.classList.add('theme-cyber');
-        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="/css/cyber-theme.css">');
+        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="css/cyber-theme.css">');
         const script = document.createElement('script');
-        script.src = '/js/cyber-theme.js';
+        script.src = 'js/cyber-theme.js';
         document.body.appendChild(script);
       }
 
       // ---- Auth gate (§5) ----
-      const session = await requireAuth('/field.html?u=' + encodeURIComponent(uniSlug) + '&f=' + encodeURIComponent(fieldSlug));
+      const session = await requireAuth(SITE_BASE + '/field.html?u=' + encodeURIComponent(uniSlug) + '&f=' + encodeURIComponent(fieldSlug));
       if (!session) return;
 
       await renderHeader();

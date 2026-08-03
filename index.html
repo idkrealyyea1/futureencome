@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UniVault — Choose Your University</title>
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b0e14">
-  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <header id="site-header"></header>
@@ -42,10 +42,10 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/config.js"></script>
-  <script src="/js/supabase-client.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
   <script>
     (async function () {
       await renderHeader();
@@ -69,7 +69,7 @@
         }
 
         grid.innerHTML = data.map(function (u, i) {
-          return '<a class="university-card reveal" href="/university.html?u=' + encodeURIComponent(u.slug) + '" style="transition-delay:' + (i * 60) + 'ms">' +
+          return '<a class="university-card reveal" href="' + SITE_BASE + '/university.html?u=' + encodeURIComponent(u.slug) + '" style="transition-delay:' + (i * 60) + 'ms">' +
             '  <div class="uni-card-top">' +
             '    <div class="uni-logo">' + escapeHTML((u.name.match(/\b\w/g) || ['U']).slice(0, 3).join('')) + '</div>' +
             '  </div>' +
